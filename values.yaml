@@ -1,0 +1,61 @@
+image:
+  repository: quay.io/jupyter/minimal-notebook
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+serviceAccount:
+  create: false
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+containerPort: 8888
+
+env:
+  # Token used by Jupyter for login (set to "" to let Jupyter pick a random token)
+  jupyterToken: "openshift"
+  # Add arbitrary extra env variables if needed
+  extra: []
+  # - name: SOME_VAR
+  #   value: some-value
+
+persistence:
+  enabled: false
+  size: 5Gi
+  storageClass: ""
+  accessModes:
+    - ReadWriteOnce
+  mountPath: /home/jovyan/work
+  existingClaim: ""
+
+service:
+  type: ClusterIP
+  port: 8888
+  targetPort: 8888
+  annotations: {}
+
+route:
+  enabled: true
+  host: ""   # e.g. jupyter.apps.cluster.example.com (leave blank to let router assign)
+  path: /
+  annotations: {}
+  tls:
+    enabled: true
+    termination: edge  # edge | passthrough | reencrypt
+    insecureEdgeTerminationPolicy: Redirect  # Allow | None | Redirect
+
+imagePullSecrets: []
+nodeSelector: {}
+tolerations: []
+affinity: {}
