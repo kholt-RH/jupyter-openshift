@@ -1,0 +1,6 @@
+apiVersion: v2
+name: jupyter-notebook
+description: Jupyter Notebook on OpenShift with Service and Route
+type: application
+version: 0.1.0
+appVersion: "latest"
