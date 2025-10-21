@@ -1,5 +1,5 @@
 image:
-  repository: quay.io/jupyter/minimal-notebook
+  repository: quay.io/jupyter/datascience-notebook
   tag: latest
   pullPolicy: IfNotPresent
 
