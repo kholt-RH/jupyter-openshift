@@ -44,26 +44,16 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.persistence.enabled }}
           volumeMounts:
             - name: notebook-data
               mountPath: {{ .Values.persistence.mountPath }}
-          {{- end }}
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml .Values.imagePullSecrets | nindent 8 }}
       {{- end }}
-      {{- if .Values.persistence.enabled }}
       volumes:
         - name: notebook-data
-          {{- if .Values.persistence.existingClaim }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim }}
-          {{- else }}
-          persistentVolumeClaim:
-            claimName: {{ include "jupyter.fullname" . }}-pvc
-          {{- end }}
-      {{- end }}
+          empytDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
